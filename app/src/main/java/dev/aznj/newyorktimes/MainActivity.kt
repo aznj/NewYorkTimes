@@ -1,9 +1,11 @@
 package dev.aznj.newyorktimes
 
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.databinding.ActivityMainBinding
 import dev.aznj.newyorktimes.presentation.ui.list.ListFragment
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

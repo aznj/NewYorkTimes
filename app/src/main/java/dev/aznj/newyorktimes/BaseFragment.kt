@@ -9,6 +9,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     protected val binding
         get() = _binding!!
 
+    abstract fun setupViewModel()
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()

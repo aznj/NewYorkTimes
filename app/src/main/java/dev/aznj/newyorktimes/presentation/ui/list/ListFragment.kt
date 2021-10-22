@@ -20,30 +20,55 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.BaseFragment
 import dev.aznj.newyorktimes.R
 import dev.aznj.newyorktimes.compose.Grey
 import dev.aznj.newyorktimes.compose.MyApplicationTheme
 import dev.aznj.newyorktimes.databinding.ActivityMainBinding
 import dev.aznj.newyorktimes.presentation.component.CardItem
+import dev.aznj.newyorktimes.presentation.ui.detail.DetailActivity
 
+@AndroidEntryPoint
 class ListFragment : BaseFragment<ActivityMainBinding>() {
 
     companion object {
+        const val MOST_VIEWED = "viewed"
+        const val MOST_SHARED = "shared"
+        const val MOST_EMAILED = "emailed"
         fun newInstance() = ListFragment()
     }
+
+    private lateinit var viewModel: ListFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setupViewModel()
         return ComposeView(requireContext()).apply {
             setContent {
                 MyApplicationTheme {
                     ListComposable(
                         onSearchClick = {
 
+                        },
+                        onMostViewedClick = {
+                            viewModel.processNavigationAction(
+                                ListFragmentNavigationAction.ShowMostPopular(MOST_VIEWED)
+                            )
+                        },
+                        onMostSharedClick = {
+                            viewModel.processNavigationAction(
+                                ListFragmentNavigationAction.ShowMostPopular(MOST_SHARED)
+                            )
+                        },
+                        onMostEmailedClick = {
+                            viewModel.processNavigationAction(
+                                ListFragmentNavigationAction.ShowMostPopular(MOST_EMAILED)
+                            )
                         }
                     )
                 }
@@ -51,10 +76,29 @@ class ListFragment : BaseFragment<ActivityMainBinding>() {
         }
     }
 
+    override fun setupViewModel() {
+        viewModel = ViewModelProvider(this).get(ListFragmentViewModel::class.java)
+
+        observeNavigationResult()
+    }
+
+    private fun observeNavigationResult() {
+        viewModel.navigationResultLiveData.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is ListFragmentNavigationResult.NavigateToMostViewed -> {
+                    startActivity(DetailActivity.newIntent(requireActivity(), result.listType))
+                }
+            }
+        })
+    }
+
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun ListComposable(
         onSearchClick: () -> Unit,
+        onMostViewedClick: () -> Unit,
+        onMostSharedClick: () -> Unit,
+        onMostEmailedClick: () -> Unit,
     ) {
         Column(
             modifier = Modifier
@@ -85,19 +129,19 @@ class ListFragment : BaseFragment<ActivityMainBinding>() {
                 stringResource(id = R.string.most_viewed),
                 RoundedCornerShape(8.dp),
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-                onSearchClick
+                onMostViewedClick
             )
             CardItem(
                 stringResource(id = R.string.most_shared),
                 RoundedCornerShape(8.dp),
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-                onSearchClick
+                onMostSharedClick
             )
             CardItem(
                 stringResource(id = R.string.most_emailed),
                 RoundedCornerShape(8.dp),
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-                onSearchClick
+                onMostEmailedClick
             )
         }
     }
