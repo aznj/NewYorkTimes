@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dev.aznj.newyorktimes.cache.MostViewedDao
+import dev.aznj.newyorktimes.cache.MostPopularDao
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import dev.aznj.newyorktimes.network.ApiService
 import dev.aznj.newyorktimes.network.model.MostPopularDtoMapper
@@ -18,13 +18,13 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideMostViewedRepository(
-        mostViewedDao: MostViewedDao,
+        mostPopularDao: MostPopularDao,
         mostViewedEntityMapper: MostViewedEntityMapper,
         apiService: ApiService,
         mostPopularDtoMapper: MostPopularDtoMapper
     ): MostViewedRepository {
         return MostViewedRepository(
-            mostViewedDao = mostViewedDao,
+            mostViewedDao = mostPopularDao,
             entityMapper = mostViewedEntityMapper,
             apiService = apiService,
             mostPopularDtoMapper = mostPopularDtoMapper

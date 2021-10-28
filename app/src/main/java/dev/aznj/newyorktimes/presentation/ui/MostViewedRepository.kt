@@ -1,6 +1,6 @@
 package dev.aznj.newyorktimes.presentation.ui
 
-import dev.aznj.newyorktimes.cache.MostViewedDao
+import dev.aznj.newyorktimes.cache.MostPopularDao
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import dev.aznj.newyorktimes.domain.data.DataState
 import dev.aznj.newyorktimes.domain.model.MostPopular
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class MostViewedRepository(
-    private val mostViewedDao: MostViewedDao,
+    private val mostPopularDao: MostPopularDao,
     private val entityMapper: MostViewedEntityMapper,
     private val apiService: ApiService,
     private val mostPopularDtoMapper: MostPopularDtoMapper
@@ -28,17 +28,17 @@ class MostViewedRepository(
         try {
             emit(DataState.loading())
             try {
-                val mostVieweds = getMostViewedFromNetwork(
+                val mostPopular = getMostPopularFromNetwork(
                     token = token,
                     listType = listType
                 )
-                mostViewedDao.insertMostVieweds(entityMapper.toEntityList(mostVieweds))
+                mostPopularDao.insertMostVieweds(entityMapper.toEntityList(mostPopular))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
 
             // query from db
-            val cacheResult = mostViewedDao.getAllMostVieweds()
+            val cacheResult = mostPopularDao.getAllMostVieweds()
 
             val list = entityMapper.fromEntityList(cacheResult)
 
@@ -48,7 +48,7 @@ class MostViewedRepository(
         }
     }
 
-    private suspend fun getMostViewedFromNetwork(
+    private suspend fun getMostPopularFromNetwork(
         token: String,
         listType: String,
     ): List<MostPopular> {

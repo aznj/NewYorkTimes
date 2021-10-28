@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.aznj.newyorktimes.BaseApplication
-import dev.aznj.newyorktimes.cache.MostViewedDao
+import dev.aznj.newyorktimes.cache.MostPopularDao
 import dev.aznj.newyorktimes.cache.database.AppDatabase
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import javax.inject.Singleton
@@ -26,7 +26,7 @@ object CacheModule {
 
     @Singleton
     @Provides
-    fun provideMostViewedDao(db: AppDatabase): MostViewedDao{
+    fun provideMostViewedDao(db: AppDatabase): MostPopularDao{
         return db.mostViewedDao()
     }
 

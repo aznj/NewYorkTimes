@@ -7,7 +7,7 @@ import androidx.room.Query
 import dev.aznj.newyorktimes.cache.model.MostViewedEntity
 
 @Dao
-interface MostViewedDao {
+interface MostPopularDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMostVieweds(mostVieweds: List<MostViewedEntity>): LongArray
