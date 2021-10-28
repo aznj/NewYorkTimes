@@ -1,4 +1,4 @@
-package dev.aznj.newyorktimes.presentation.ui.detail
+package dev.aznj.newyorktimes.presentation.ui
 
 import dev.aznj.newyorktimes.cache.MostViewedDao
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper

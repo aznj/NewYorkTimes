@@ -9,7 +9,7 @@ import dev.aznj.newyorktimes.cache.MostViewedDao
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import dev.aznj.newyorktimes.network.ApiService
 import dev.aznj.newyorktimes.network.model.MostPopularDtoMapper
-import dev.aznj.newyorktimes.presentation.ui.detail.MostViewedRepository
+import dev.aznj.newyorktimes.presentation.ui.MostViewedRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)
