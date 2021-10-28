@@ -27,9 +27,6 @@ import dev.aznj.newyorktimes.databinding.ActivityDetailBinding
 import dev.aznj.newyorktimes.domain.model.MostPopular
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
-import dev.aznj.newyorktimes.presentation.ui.detail.GetMostPopularViewState
-import dev.aznj.newyorktimes.presentation.ui.detail.ListActivityViewModel
-import dev.aznj.newyorktimes.presentation.ui.detail.MostPopularListEvent
 
 @AndroidEntryPoint
 class ListActivity : BaseActivity() {
