@@ -86,7 +86,7 @@ class MenuFragment : BaseFragment<ActivityMainBinding>() {
     private fun observeNavigationResult() {
         viewModel.navigationResultLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
-                is ListFragmentNavigationResult.NavigateToMostViewed -> {
+                is ListFragmentNavigationResult.NavigateToMostPopular -> {
                     startActivity(ListActivity.newIntent(requireActivity(), result.listType))
                 }
             }

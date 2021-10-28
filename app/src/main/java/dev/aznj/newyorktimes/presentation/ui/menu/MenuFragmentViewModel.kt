@@ -22,7 +22,7 @@ class ListFragmentViewModel @Inject constructor() : ViewModel() {
         when (action) {
             is ListFragmentNavigationAction.ShowMostPopular -> {
                 _navigationResultLiveData.setValueOnMainThread(
-                    ListFragmentNavigationResult.NavigateToMostViewed(action.listType)
+                    ListFragmentNavigationResult.NavigateToMostPopular(action.listType)
                 )
             }
         }
@@ -34,5 +34,5 @@ sealed class ListFragmentNavigationAction {
 }
 
 sealed class ListFragmentNavigationResult {
-    data class NavigateToMostViewed(val listType: String): ListFragmentNavigationResult()
+    data class NavigateToMostPopular(val listType: String): ListFragmentNavigationResult()
 }
