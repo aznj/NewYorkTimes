@@ -3,7 +3,7 @@ package dev.aznj.newyorktimes
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.databinding.ActivityMainBinding
-import dev.aznj.newyorktimes.presentation.ui.list.ListFragment
+import dev.aznj.newyorktimes.presentation.ui.menu.MenuFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
         setActionBarTitle(getString(R.string.app_name))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ListFragment.newInstance()).commitNow()
+                .replace(R.id.container, MenuFragment.newInstance()).commitNow()
         }
     }
 }

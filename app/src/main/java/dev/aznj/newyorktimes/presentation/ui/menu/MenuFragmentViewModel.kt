@@ -1,4 +1,4 @@
-package dev.aznj.newyorktimes.presentation.ui.list
+package dev.aznj.newyorktimes.presentation.ui.menu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

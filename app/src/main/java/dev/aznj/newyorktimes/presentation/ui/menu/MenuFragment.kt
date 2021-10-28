@@ -1,4 +1,4 @@
-package dev.aznj.newyorktimes.presentation.ui.list
+package dev.aznj.newyorktimes.presentation.ui.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,13 +31,13 @@ import dev.aznj.newyorktimes.presentation.component.CardItem
 import dev.aznj.newyorktimes.presentation.ui.detail.DetailActivity
 
 @AndroidEntryPoint
-class ListFragment : BaseFragment<ActivityMainBinding>() {
+class MenuFragment : BaseFragment<ActivityMainBinding>() {
 
     companion object {
         const val MOST_VIEWED = "viewed"
         const val MOST_SHARED = "shared"
         const val MOST_EMAILED = "emailed"
-        fun newInstance() = ListFragment()
+        fun newInstance() = MenuFragment()
     }
 
     private lateinit var viewModel: ListFragmentViewModel
