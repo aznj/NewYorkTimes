@@ -28,7 +28,8 @@ import dev.aznj.newyorktimes.compose.Grey
 import dev.aznj.newyorktimes.compose.MyApplicationTheme
 import dev.aznj.newyorktimes.databinding.ActivityMainBinding
 import dev.aznj.newyorktimes.presentation.component.CardItem
-import dev.aznj.newyorktimes.presentation.ui.detail.DetailActivity
+import dev.aznj.newyorktimes.presentation.ui.list.ListActivity
+
 
 @AndroidEntryPoint
 class MenuFragment : BaseFragment<ActivityMainBinding>() {
@@ -86,7 +87,7 @@ class MenuFragment : BaseFragment<ActivityMainBinding>() {
         viewModel.navigationResultLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is ListFragmentNavigationResult.NavigateToMostViewed -> {
-                    startActivity(DetailActivity.newIntent(requireActivity(), result.listType))
+                    startActivity(ListActivity.newIntent(requireActivity(), result.listType))
                 }
             }
         })

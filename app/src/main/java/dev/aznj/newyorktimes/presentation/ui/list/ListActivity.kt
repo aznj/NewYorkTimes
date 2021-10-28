@@ -1,4 +1,4 @@
-package dev.aznj.newyorktimes.presentation.ui.detail
+package dev.aznj.newyorktimes.presentation.ui.list
 
 import android.content.Context
 import android.content.Intent
@@ -27,22 +27,25 @@ import dev.aznj.newyorktimes.databinding.ActivityDetailBinding
 import dev.aznj.newyorktimes.domain.model.MostPopular
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
+import dev.aznj.newyorktimes.presentation.ui.detail.GetMostPopularViewState
+import dev.aznj.newyorktimes.presentation.ui.detail.ListActivityViewModel
+import dev.aznj.newyorktimes.presentation.ui.detail.MostPopularListEvent
 
 @AndroidEntryPoint
-class DetailActivity : BaseActivity() {
+class ListActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_LIST_TYPE = "list_type"
 
         fun newIntent(context: Context, listType: String): Intent {
-            return Intent(context, DetailActivity::class.java).apply {
+            return Intent(context, ListActivity::class.java).apply {
                 putExtra(EXTRA_LIST_TYPE, listType)
             }
         }
     }
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: DetailActivityViewModel
+    private lateinit var viewModel: ListActivityViewModel
     private var listType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +55,7 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun setupViewModel() {
-        viewModel = ViewModelProvider(this).get(DetailActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ListActivityViewModel::class.java)
     }
 
     override fun setupView(savedInstanceState: Bundle?) {

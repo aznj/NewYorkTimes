@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @HiltViewModel
-class DetailActivityViewModel
+class ListActivityViewModel
 @Inject
 constructor(
     private val repository: MostViewedRepository,
