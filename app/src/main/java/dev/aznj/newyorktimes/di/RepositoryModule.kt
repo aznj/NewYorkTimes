@@ -24,7 +24,7 @@ object RepositoryModule {
         mostPopularDtoMapper: MostPopularDtoMapper
     ): MostViewedRepository {
         return MostViewedRepository(
-            mostViewedDao = mostPopularDao,
+            mostPopularDao = mostPopularDao,
             entityMapper = mostViewedEntityMapper,
             apiService = apiService,
             mostPopularDtoMapper = mostPopularDtoMapper
