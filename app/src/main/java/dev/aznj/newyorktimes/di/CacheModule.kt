@@ -8,6 +8,10 @@ import dagger.hilt.components.SingletonComponent
 import dev.aznj.newyorktimes.BaseApplication
 import dev.aznj.newyorktimes.cache.MostPopularDao
 import dev.aznj.newyorktimes.cache.database.AppDatabase
+import dev.aznj.newyorktimes.cache.MostEmailedDao
+import dev.aznj.newyorktimes.cache.MostSharedDao
+import dev.aznj.newyorktimes.cache.model.MostEmailedEntityMapper
+import dev.aznj.newyorktimes.cache.model.MostSharedEntityMapper
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import javax.inject.Singleton
 
@@ -32,7 +36,31 @@ object CacheModule {
 
     @Singleton
     @Provides
-    fun provideCacheRecipeMapper(): MostViewedEntityMapper{
+    fun provideMostSharedDao(db: AppDatabase): MostSharedDao{
+        return db.mostSharedDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMostEmailedDao(db: AppDatabase): MostEmailedDao {
+        return db.mostEmailedDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCacheMostViewedMapper(): MostViewedEntityMapper{
         return MostViewedEntityMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCacheMostSharedMapper(): MostSharedEntityMapper{
+        return MostSharedEntityMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCacheMostEmailedMapper(): MostEmailedEntityMapper{
+        return MostEmailedEntityMapper()
     }
 }

@@ -1,6 +1,10 @@
 package dev.aznj.newyorktimes.presentation.ui
 
+import dev.aznj.newyorktimes.cache.MostEmailedDao
 import dev.aznj.newyorktimes.cache.MostPopularDao
+import dev.aznj.newyorktimes.cache.MostSharedDao
+import dev.aznj.newyorktimes.cache.model.MostEmailedEntityMapper
+import dev.aznj.newyorktimes.cache.model.MostSharedEntityMapper
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
 import dev.aznj.newyorktimes.domain.data.DataState
 import dev.aznj.newyorktimes.domain.model.MostPopular
@@ -11,7 +15,11 @@ import kotlinx.coroutines.flow.flow
 
 class MostViewedRepository(
     private val mostPopularDao: MostPopularDao,
-    private val entityMapper: MostViewedEntityMapper,
+    private val mostSharedDao: MostSharedDao,
+    private val mostEmailedDao: MostEmailedDao,
+    private val mostViewedEntityMapper: MostViewedEntityMapper,
+    private val mostSharedEntityMapper: MostSharedEntityMapper,
+    private val mostEmailedEntityMapper: MostEmailedEntityMapper,
     private val apiService: ApiService,
     private val mostPopularDtoMapper: MostPopularDtoMapper
 ) {
@@ -32,19 +40,43 @@ class MostViewedRepository(
                     token = token,
                     listType = listType
                 )
-                mostPopularDao.insertMostVieweds(entityMapper.toEntityList(mostPopular))
+                when (listType) {
+                    MOST_VIEWED -> {
+                        mostPopularDao.insertMostVieweds(mostViewedEntityMapper.toEntityList(mostPopular))
+                    }
+                    MOST_SHARED -> {
+                        mostSharedDao.insertMostShared(mostSharedEntityMapper.toEntityList(mostPopular))
+                    }
+                    else -> {
+                        mostEmailedDao.insertMostEmailed(mostEmailedEntityMapper.toEntityList(mostPopular))
+                    }
+                }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
 
-            // query from db
-            val cacheResult = mostPopularDao.getAllMostVieweds()
-
-            val list = entityMapper.fromEntityList(cacheResult)
-
-            emit(DataState.success(list))
+            emit(DataState.success(queryFromDatabase(listType)))
         } catch (e: Exception) {
             emit(DataState.error(e.message ?: "Something went wrong"))
+        }
+    }
+
+    // query from db
+    private suspend fun queryFromDatabase(listType: String): List<MostPopular> {
+        return when (listType) {
+            MOST_VIEWED -> {
+                val cacheResult = mostPopularDao.getAllMostVieweds()
+                mostViewedEntityMapper.fromEntityList(cacheResult)
+            }
+            MOST_SHARED -> {
+                val cacheResult = mostSharedDao.getAllMostShared()
+                mostSharedEntityMapper.fromEntityList(cacheResult)
+            }
+            else -> {
+                val cacheResult = mostEmailedDao.getAllMostEmailed()
+                mostEmailedEntityMapper.fromEntityList(cacheResult)
+            }
         }
     }
 
