@@ -1,4 +1,4 @@
-package dev.aznj.newyorktimes.presentation.ui.detail
+package dev.aznj.newyorktimes.presentation.ui.list
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
