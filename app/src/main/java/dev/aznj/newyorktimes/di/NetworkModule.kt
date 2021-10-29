@@ -6,8 +6,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.aznj.newyorktimes.network.ApiService
+import dev.aznj.newyorktimes.network.SearchApiService
 import dev.aznj.newyorktimes.network.model.MostPopularDto
 import dev.aznj.newyorktimes.network.model.MostPopularDtoMapper
+import dev.aznj.newyorktimes.network.model.SearchDtoMapper
 import javax.inject.Named
 import javax.inject.Singleton
 import retrofit2.Retrofit
@@ -31,6 +33,22 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchApiMapper(): SearchDtoMapper {
+        return SearchDtoMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchApiService(): SearchApiService {
+        return Retrofit.Builder()
+            .baseUrl("https://api.nytimes.com/svc/search/v2/")
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .build()
+            .create(SearchApiService::class.java)
     }
 
     @Singleton

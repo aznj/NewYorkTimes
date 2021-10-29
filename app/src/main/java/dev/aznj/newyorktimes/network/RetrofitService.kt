@@ -1,6 +1,7 @@
 package dev.aznj.newyorktimes.network
 
 import dev.aznj.newyorktimes.network.response.MostPopularResponse
+import dev.aznj.newyorktimes.network.response.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -21,4 +22,13 @@ interface ApiService {
     suspend fun shared(
         @Query("api-key") apiKey: String?,
     ): MostPopularResponse
+}
+
+interface SearchApiService {
+
+    @GET("articlesearch.json")
+    suspend fun search(
+        @Query("q") query: String,
+        @Query("api-key") apiKey: String?
+    ): SearchResponse
 }

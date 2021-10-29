@@ -29,6 +29,7 @@ import dev.aznj.newyorktimes.compose.MyApplicationTheme
 import dev.aznj.newyorktimes.databinding.ActivityMainBinding
 import dev.aznj.newyorktimes.presentation.component.CardItem
 import dev.aznj.newyorktimes.presentation.ui.list.ListActivity
+import dev.aznj.newyorktimes.presentation.ui.search.SearchActivity
 
 
 @AndroidEntryPoint
@@ -54,7 +55,9 @@ class MenuFragment : BaseFragment<ActivityMainBinding>() {
                 MyApplicationTheme {
                     ListComposable(
                         onSearchClick = {
-
+                            viewModel.processNavigationAction(
+                                ListFragmentNavigationAction.ShowSearch
+                            )
                         },
                         onMostViewedClick = {
                             viewModel.processNavigationAction(
@@ -88,6 +91,9 @@ class MenuFragment : BaseFragment<ActivityMainBinding>() {
             when (result) {
                 is ListFragmentNavigationResult.NavigateToMostPopular -> {
                     startActivity(ListActivity.newIntent(requireActivity(), result.listType))
+                }
+                is ListFragmentNavigationResult.NavigateToSearch -> {
+                    startActivity(SearchActivity.newIntent(requireActivity()))
                 }
             }
         })

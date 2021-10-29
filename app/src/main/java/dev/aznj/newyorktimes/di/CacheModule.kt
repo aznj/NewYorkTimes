@@ -10,9 +10,11 @@ import dev.aznj.newyorktimes.cache.MostPopularDao
 import dev.aznj.newyorktimes.cache.database.AppDatabase
 import dev.aznj.newyorktimes.cache.MostEmailedDao
 import dev.aznj.newyorktimes.cache.MostSharedDao
+import dev.aznj.newyorktimes.cache.SearchDao
 import dev.aznj.newyorktimes.cache.model.MostEmailedEntityMapper
 import dev.aznj.newyorktimes.cache.model.MostSharedEntityMapper
 import dev.aznj.newyorktimes.cache.model.MostViewedEntityMapper
+import dev.aznj.newyorktimes.cache.model.SearchEntityMapper
 import javax.inject.Singleton
 
 @Module
@@ -48,6 +50,12 @@ object CacheModule {
 
     @Singleton
     @Provides
+    fun provideSearchDao(db: AppDatabase): SearchDao {
+        return db.searchDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideCacheMostViewedMapper(): MostViewedEntityMapper{
         return MostViewedEntityMapper()
     }
@@ -62,5 +70,11 @@ object CacheModule {
     @Provides
     fun provideCacheMostEmailedMapper(): MostEmailedEntityMapper{
         return MostEmailedEntityMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCacheSearchMapper(): SearchEntityMapper{
+        return SearchEntityMapper()
     }
 }
