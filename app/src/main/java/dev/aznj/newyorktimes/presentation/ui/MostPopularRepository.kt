@@ -1,7 +1,7 @@
 package dev.aznj.newyorktimes.presentation.ui
 
 import dev.aznj.newyorktimes.cache.MostEmailedDao
-import dev.aznj.newyorktimes.cache.MostPopularDao
+import dev.aznj.newyorktimes.cache.MostViewedDao
 import dev.aznj.newyorktimes.cache.MostSharedDao
 import dev.aznj.newyorktimes.cache.model.MostEmailedEntityMapper
 import dev.aznj.newyorktimes.cache.model.MostSharedEntityMapper
@@ -13,8 +13,8 @@ import dev.aznj.newyorktimes.network.model.MostPopularDtoMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class MostViewedRepository(
-    private val mostPopularDao: MostPopularDao,
+class MostPopularRepository(
+    private val mostViewedDao: MostViewedDao,
     private val mostSharedDao: MostSharedDao,
     private val mostEmailedDao: MostEmailedDao,
     private val mostViewedEntityMapper: MostViewedEntityMapper,
@@ -42,7 +42,7 @@ class MostViewedRepository(
                 )
                 when (listType) {
                     MOST_VIEWED -> {
-                        mostPopularDao.insertMostVieweds(mostViewedEntityMapper.toEntityList(mostPopular))
+                        mostViewedDao.insertMostVieweds(mostViewedEntityMapper.toEntityList(mostPopular))
                     }
                     MOST_SHARED -> {
                         mostSharedDao.insertMostShared(mostSharedEntityMapper.toEntityList(mostPopular))
@@ -66,7 +66,7 @@ class MostViewedRepository(
     private suspend fun queryFromDatabase(listType: String): List<MostPopular> {
         return when (listType) {
             MOST_VIEWED -> {
-                val cacheResult = mostPopularDao.getAllMostVieweds()
+                val cacheResult = mostViewedDao.getAllMostVieweds()
                 mostViewedEntityMapper.fromEntityList(cacheResult)
             }
             MOST_SHARED -> {

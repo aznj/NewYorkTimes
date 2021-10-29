@@ -9,7 +9,7 @@ import dev.aznj.newyorktimes.cache.model.MostSharedEntity
 import dev.aznj.newyorktimes.cache.model.MostViewedEntity
 
 @Dao
-interface MostPopularDao {
+interface MostViewedDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMostVieweds(mostVieweds: List<MostViewedEntity>): LongArray
 

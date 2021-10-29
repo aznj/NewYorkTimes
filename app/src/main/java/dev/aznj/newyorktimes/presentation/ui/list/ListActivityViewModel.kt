@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.aznj.newyorktimes.domain.model.MostPopular
-import dev.aznj.newyorktimes.presentation.ui.MostViewedRepository
+import dev.aznj.newyorktimes.presentation.ui.MostPopularRepository
 import javax.inject.Inject
 import javax.inject.Named
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.onEach
 class ListActivityViewModel
 @Inject
 constructor(
-    private val repository: MostViewedRepository,
+    private val repository: MostPopularRepository,
     private @Named("auth_token") val token: String,
 ) : ViewModel() {
 
