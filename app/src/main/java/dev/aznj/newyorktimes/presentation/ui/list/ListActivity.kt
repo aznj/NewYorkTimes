@@ -69,6 +69,8 @@ class ListActivity : BaseActivity() {
             )
         }
 
+        toggleBackButton(true)
+
         binding.detailComposeView.setContent {
             MostPopularComposable(
                 mostPopularViewState = viewModel.mostPopularViewState.collectAsState().value
@@ -130,7 +132,7 @@ private fun MostPopularCard(
     ) {
         Column(
             modifier = Modifier.padding(
-                start = 10.dp, end = 10.dp
+                start = 10.dp, end = 10.dp, top = 16.dp, bottom = 16.dp
             )
         ) {
             Text(
