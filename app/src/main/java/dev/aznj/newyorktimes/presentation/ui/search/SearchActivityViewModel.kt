@@ -19,7 +19,7 @@ constructor(
     ) : ViewModel()
 {
     var searchViewState: MutableStateFlow<SearchViewState> =
-        MutableStateFlow(SearchViewState.Loading)
+        MutableStateFlow(SearchViewState.EmptyScreen)
 
     fun processViewAction(action: SearchViewAction) {
         when (action) {

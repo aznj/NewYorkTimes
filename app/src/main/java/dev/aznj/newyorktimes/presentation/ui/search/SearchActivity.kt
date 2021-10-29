@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -25,8 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.BaseActivity
+import dev.aznj.newyorktimes.R
 import dev.aznj.newyorktimes.databinding.ActivitySearchBinding
 import dev.aznj.newyorktimes.domain.model.Search
+import dev.aznj.newyorktimes.presentation.component.EmptyScreen
+import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
+import dev.aznj.newyorktimes.presentation.ui.list.GetMostPopularViewState
 import dev.aznj.newyorktimes.presentation.util.DebounceClickListener
 
 @AndroidEntryPoint
@@ -55,12 +60,12 @@ class SearchActivity : BaseActivity() {
         setSupportActionBar(binding.appBarLayout.toolbar)
         super.toggleBackButton(true)
         binding.appBarLayout.productSearchButtonImageView.setOnClickListener(clickListener)
-        /*binding.appBarLayout.searchBarTextInputLayout.setOnEditorActionListener { textView, actionId, keyEvent ->
+        binding.appBarLayout.searchBarTextInputLayout.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
             }
             false
-        }*/
+        }
         toggleKeyboard(true, binding.appBarLayout.searchBarTextInputLayout)
         binding.searchComposeView.setContent {
             SearchResultComposable(
@@ -93,6 +98,15 @@ private fun SearchResultComposable(
     when (searchResultViewState) {
         is SearchViewState.Loaded -> {
             SearchList(lists = searchResultViewState.searchList)
+        }
+        is SearchViewState.Loading -> {
+            LoadingProgressBar()
+        }
+        is SearchViewState.EmptyScreen -> {
+            EmptyScreen(stringResource(id = R.string.start_typing))
+        }
+        is SearchViewState.ShowError -> {
+            Text(text = searchResultViewState.errorMessage)
         }
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.BaseActivity
+import dev.aznj.newyorktimes.R
 import dev.aznj.newyorktimes.databinding.ActivityDetailBinding
 import dev.aznj.newyorktimes.domain.model.MostPopular
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
@@ -87,7 +89,7 @@ private fun MostPopularComposable(
             LoadingProgressBar()
         }
         is GetMostPopularViewState.EmptyScreen -> {
-            EmptyScreen()
+            EmptyScreen(stringResource(id = R.string.empty))
         }
         is GetMostPopularViewState.ShowError -> {
             Text(text = mostPopularViewState.errorMessage)
