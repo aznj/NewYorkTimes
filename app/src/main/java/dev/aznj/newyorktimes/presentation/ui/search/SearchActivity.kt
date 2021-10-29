@@ -5,24 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import dev.aznj.newyorktimes.BaseActivity
@@ -32,13 +20,17 @@ import dev.aznj.newyorktimes.domain.model.Search
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
 import dev.aznj.newyorktimes.presentation.component.ListCard
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
-import dev.aznj.newyorktimes.presentation.ui.list.GetMostPopularViewState
 import dev.aznj.newyorktimes.presentation.util.DebounceClickListener
+import dev.aznj.newyorktimes.util.Constant
+import dev.aznj.newyorktimes.util.reFormatDate
+import java.util.*
 
 @AndroidEntryPoint
 class SearchActivity : BaseActivity() {
 
     companion object {
+
+
         fun newIntent(context: Context): Intent = Intent(context, SearchActivity::class.java)
     }
 
@@ -120,7 +112,11 @@ private fun SearchList(lists: List<Search>) {
         ) { index, item ->
             ListCard(
                 title = item.abstract,
-                publishedDate = item.publishedDate,
+                publishedDate = reFormatDate(
+                    Constant.DATE_INPUT_FORMAT,
+                    Constant.DATE_OUTPUT_FORMAT,
+                    item.publishedDate.substringBefore('T')
+                ),
                 onClick = {}
             )
         }

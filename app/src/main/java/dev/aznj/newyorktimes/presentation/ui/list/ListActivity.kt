@@ -30,6 +30,8 @@ import dev.aznj.newyorktimes.domain.model.MostPopular
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
 import dev.aznj.newyorktimes.presentation.component.ListCard
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
+import dev.aznj.newyorktimes.util.Constant
+import dev.aznj.newyorktimes.util.reFormatDate
 
 @AndroidEntryPoint
 class ListActivity : BaseActivity() {
@@ -108,7 +110,11 @@ private fun MostPopularList(lists: List<MostPopular>) {
         ) { index, item ->
             ListCard(
                 title = item.title,
-                publishedDate = item.publishedDate,
+                publishedDate = reFormatDate(
+                    Constant.DATE_INPUT_FORMAT,
+                    Constant.DATE_OUTPUT_FORMAT,
+                    item.publishedDate
+                ),
                 onClick = {}
             )
         }
