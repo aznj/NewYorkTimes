@@ -52,7 +52,7 @@ class SearchActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarLayout.toolbar)
         super.toggleBackButton(true)
-        binding.appBarLayout.productSearchButtonImageView.setOnClickListener(clickListener)
+        binding.appBarLayout.searchButtonImageView.setOnClickListener(clickListener)
         binding.appBarLayout.searchBarTextInputLayout.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
@@ -70,7 +70,7 @@ class SearchActivity : BaseActivity() {
     private val clickListener = object : DebounceClickListener() {
         override fun onDebouncedClick(view: View) {
             when (view) {
-                binding.appBarLayout.productSearchButtonImageView -> {
+                binding.appBarLayout.searchButtonImageView -> {
                     hideKeyboard()
                     performSearch()
                 }
