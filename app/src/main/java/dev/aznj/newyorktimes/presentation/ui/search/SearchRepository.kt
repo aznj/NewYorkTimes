@@ -27,6 +27,7 @@ class SearchRepository(
                     token = token,
                     query = query
                 )
+                searchDao.clear()
                 searchDao.insertSearch((entityMapper.toEntityList(searchResults)))
 
             } catch (e: Exception) {

@@ -8,7 +8,10 @@ import dev.aznj.newyorktimes.cache.model.SearchEntity
 
 @Dao
 interface SearchDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("DELETE FROM search")
+    suspend fun clear()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearch(search: List<SearchEntity>): LongArray
 
     @Query("SELECT * FROM search")
