@@ -30,6 +30,7 @@ import dev.aznj.newyorktimes.R
 import dev.aznj.newyorktimes.databinding.ActivitySearchBinding
 import dev.aznj.newyorktimes.domain.model.Search
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
+import dev.aznj.newyorktimes.presentation.component.ListCard
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
 import dev.aznj.newyorktimes.presentation.ui.list.GetMostPopularViewState
 import dev.aznj.newyorktimes.presentation.util.DebounceClickListener
@@ -117,47 +118,11 @@ private fun SearchList(lists: List<Search>) {
         itemsIndexed(
             items = lists
         ) { index, item ->
-            SearchCard(search = item, onClick = {})
-        }
-    }
-}
-
-@Composable
-private fun SearchCard(
-    search: Search,
-    onClick: () -> Unit,
-) {
-    Card(
-        shape = MaterialTheme.shapes.small,
-        modifier = Modifier
-            .padding(
-                bottom = 6.dp,
-                top = 6.dp,
-                start = 6.dp,
-                end = 6.dp
-            )
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        elevation = 4.dp,
-    ) {
-        Column(
-            modifier = Modifier.padding(
-                start = 10.dp, end = 10.dp
-            )
-        ) {
-            Text(
-                text = search.abstract,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                text = search.publishedDate,
-                color = Color.DarkGray,
-                fontWeight = FontWeight.Medium,
+            ListCard(
+                title = item.abstract,
+                publishedDate = item.publishedDate,
+                onClick = {}
             )
         }
-
     }
 }

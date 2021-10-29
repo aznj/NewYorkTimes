@@ -28,6 +28,7 @@ import dev.aznj.newyorktimes.R
 import dev.aznj.newyorktimes.databinding.ActivityDetailBinding
 import dev.aznj.newyorktimes.domain.model.MostPopular
 import dev.aznj.newyorktimes.presentation.component.EmptyScreen
+import dev.aznj.newyorktimes.presentation.component.ListCard
 import dev.aznj.newyorktimes.presentation.component.LoadingProgressBar
 
 @AndroidEntryPoint
@@ -105,49 +106,11 @@ private fun MostPopularList(lists: List<MostPopular>) {
         itemsIndexed(
             items = lists
         ) { index, item ->
-            MostPopularCard(mostPopular = item, onClick = {
-
-            })
-        }
-    }
-}
-
-@Composable
-private fun MostPopularCard(
-    mostPopular: MostPopular,
-    onClick: () -> Unit,
-) {
-    Card(
-        shape = MaterialTheme.shapes.small,
-        modifier = Modifier
-            .padding(
-                bottom = 6.dp,
-                top = 6.dp,
-                start = 6.dp,
-                end = 6.dp
-            )
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        elevation = 4.dp,
-    ) {
-        Column(
-            modifier = Modifier.padding(
-                start = 10.dp, end = 10.dp, top = 16.dp, bottom = 16.dp
-            )
-        ) {
-            Text(
-                text = mostPopular.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                text = mostPopular.publishedDate,
-                color = Color.DarkGray,
-                fontWeight = FontWeight.Medium,
+            ListCard(
+                title = item.title,
+                publishedDate = item.publishedDate,
+                onClick = {}
             )
         }
-
     }
 }
